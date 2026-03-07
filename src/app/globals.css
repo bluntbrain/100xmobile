@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #e7e9ea;
+  --card-bg: #16181c;
+  --card-border: #2f3336;
+  --twitter-blue: #1d9bf0;
+  --text-secondary: #71767b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* hide default react-tweet styles we don't need */
+[data-theme="dark"] {
+  --tweet-bg-color: #16181c;
+  --tweet-border: #2f3336;
+}
+
+/* marquee animation for columns */
+@keyframes marquee-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes marquee-down {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.marquee-up {
+  animation: marquee-up var(--duration, 60s) linear infinite;
+}
+
+.marquee-down {
+  animation: marquee-down var(--duration, 60s) linear infinite;
+}
+
+.marquee-up:hover,
+.marquee-down:hover {
+  animation-play-state: paused;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #2f3336;
+  border-radius: 2px;
+}
+
+/* tweet card styles */
+.tweet-card {
+  background: #16181c;
+  border: 1px solid #2f3336;
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  break-inside: avoid;
+}
+
+.tweet-card:hover {
+  background: #1d1f23;
+  border-color: #3e4144;
+}
+
+/* gradient overlays for marquee edges */
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+
+.marquee-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, #000 0%, transparent 100%);
+}
